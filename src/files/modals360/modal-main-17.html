@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="msapplication-config"
+      content="https://d3b6muno9lbfvx.cloudfront.net/keturah/img/favicon/browserconfig.xml"
+    />
+    <meta name="call-dn" content="+971522040928" />
+    <meta
+      name="whatsapp-phone"
+      content="https://api.whatsapp.com/send?phone=971522040928"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+    <title>ModalMain</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      #viewer {
+        height: 100vh;
+        width: 100vh;
+      }
+
+      canvas {
+        height: 100vh !important;
+        width: 100vw !important;
+      }
+      /* ------------------------------------ */
+      body {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        overflow: hidden;
+      }
+      .swiper {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      .swiper-wrapper {
+        width: 100%;
+        height: 100%;
+        box-sizing: content-box;
+        display: flex;
+        position: relative;
+        margin: 0 auto;
+        justify-content: center !important;
+      }
+
+      .swiper-vertical .swiper-wrapper {
+        flex-direction: column;
+      }
+      .swiper-autoheight .swiper-wrapper {
+        align-items: flex-start;
+      }
+      .swiper-initialized .swiper-slide {
+        flex-shrink: 0;
+        /* display: flex;
+        justify-content: center; */
+      }
+      .swiper-android .swiper-slide,
+      .swiper-android .swiper-wrapper {
+        transform: translate3d(0px, 0, 0);
+      }
+      .swiper-button-lock {
+        display: none !important;
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        /* cursor: pointer; */
+        padding: 5px;
+        display: block !important;
+      }
+      /* ------------------------------------ */
+      .gallery360 {
+        width: 100%;
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        /* z-index: 2000; */
+      }
+      .gallery360.hide {
+        pointer-events: none;
+      }
+      .gallery360__popup {
+        position: fixed;
+        right: 3%;
+        bottom: 50px;
+        z-index: 2000;
+        display: none;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup {
+          bottom: 150px;
+        }
+      }
+      .galley360__popup-phone {
+        cursor: pointer;
+        margin-bottom: 13px;
+      }
+      .gallery360__popup-btn {
+        cursor: pointer;
+        margin-bottom: 13px;
+      }
+      .gallery360__popup-tg {
+        cursor: pointer;
+        margin-bottom: 13px;
+      }
+      .gallery360__popup-phone {
+        cursor: pointer;
+      }
+      /* .gallery360::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0%,
+          #000000 134.72%
+        );
+        transform: translateY(40px);
+        pointer-events: none;
+        z-index: -1;
+      } */
+      /* .gallery360:hover {
+        z-index: 1000;
+      } */
+      .gallery360__wrapper {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100%;
+        padding: 0px 100px;
+        transition: all 0.3s ease;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__wrapper {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+      .gallery360__wrapper.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .gallery360__text-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 12px;
+        line-height: 150%;
+        color: #ffffff;
+        white-space: nowrap;
+        width: 94px;
+        height: 100%;
+        background-color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .gallery360__mob-btn {
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__mob-btn {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+      }
+      .gallery360__mob-btn {
+        position: relative;
+      }
+      .gallery360__left,
+      .gallery360__right {
+        /* align-self: flex-end; */
+        height: 50%;
+        cursor: pointer;
+        background-color: #000000;
+        /* padding: 10px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 94px;
+        position: relative;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__text-btn {
+          background-color: transparent !important;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left,
+        .gallery360__right {
+          /* background-color: transparent !important; */
+        }
+      }
+      .gallery360__left-int {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left-int {
+          position: relative;
+        }
+      }
+      .gallery360__left-int.active,
+      .gallery360__left-ext.active {
+        z-index: 2;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left-int.active p,
+        .gallery360__left-int:not(.active) + .gallery360__left-ext p {
+          color: #919191;
+        }
+      }
+      .gallery360__right::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 80%;
+        background: #ffffff;
+        opacity: 0.4;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__right::before {
+          display: none;
+        }
+      }
+      .gallery360__body {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        overflow: scroll;
+        width: 240px;
+        height: 50%;
+        gap: 20px;
+        margin-right: 30px;
+        position: relative;
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__body {
+          width: 70%;
+        }
+      }
+      .gallery360__body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+      .gallery360__item {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 5px 2.5px;
+        flex: 0 0 80px;
+        height: 100%;
+        -webkit-transition: all 0.15s cubic-bezier(0, 1.0146, 1, 1.0146);
+        -o-transition: all 0.15s cubic-bezier(0, 1.0146, 1, 1.0155);
+        transition: all 0.15s cubic-bezier(0, 1.0146, 1, 1.0146);
+        will-change: transform, flex-basis, height;
+      }
+      /* .gallery360__item.current-element {
+        flex-basis: 100px;
+        height: 70%;
+      }
+      .gallery360__item.prev-element {
+        flex-basis: 90px;
+        height: 60%;
+      }
+      .gallery360__item.next-element {
+        flex-basis: 90px;
+        height: 60%;
+      } */
+      .gallery360__item:first-child {
+        margin-left: auto;
+        padding-left: 5px;
+      }
+      .gallery360__item:last-child {
+        margin-right: auto;
+        padding-right: 5px;
+      }
+      .gallery360__item._active {
+        filter: brightness(0.36);
+        -webkit-filter: brightness(0.36);
+      }
+      .gallery360__img {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+      }
+      .gallery360__text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+      }
+      .gallery360__item._active .gallery360__text {
+        opacity: 1;
+      }
+      .gallery360__text p {
+        font-size: 12px;
+        line-height: 150%;
+        color: #ffffff;
+        white-space: nowrap;
+      }
+      .gallery360__img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .ext {
+        display: none;
+      }
+      .exterior-active .ext {
+        display: block;
+      }
+      .int {
+        display: none;
+      }
+      .interior-active .int {
+        display: block;
+      }
+      .gal {
+        display: none;
+      }
+      .gallery-active .gal {
+        display: block;
+      }
+      /* .letf-int-btn {
+        z-index: 3;
+        opacity: 0;
+      }
+
+      .left-gal-btn {
+        z-index: 2;
+        opacity: 0;
+      }
+      .left-ext-btn {
+        z-index: 2;
+        opacity: 0;
+      }
+      .right-int-btn {
+        z-index: 2;
+        opacity: 0;
+      }
+      .right-gal-btn {
+        z-index: 3;
+        opacity: 0;
+      }
+      .right-ext-btn {
+        z-index: 2;
+        opacity: 0;
+      }
+      .left-btn.active {
+        z-index: 3;
+        opacity: 1;
+      }
+      .right-btn.active {
+        z-index: 3;
+        opacity: 1;
+      } */
+      /* ------------ */
+      .gallery360__popup-window {
+        position: fixed;
+        z-index: 5000;
+        width: 100vw;
+        height: 100vh;
+        visibility: hidden;
+        top: 0;
+        left: 0;
+      }
+      .gallery360__popup-window.active {
+        visibility: visible;
+      }
+      .gallery360__popup-body {
+        padding-left: 30px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        background: #f3f2ef;
+        width: 633px;
+        z-index: 10000000;
+        height: 100vh;
+        transition: all 0.3s ease 0s;
+        transform: translateX(150%);
+        opacity: 0;
+        /* pointer-events: none; */
+      }
+      .gallery360__popup-body.active {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .gallery360__popup-body__close {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(-100%, -50%);
+        cursor: pointer;
+        z-index: 20;
+      }
+      .gallery360__popup-body__box {
+        margin: 0 auto;
+        overflow: scroll;
+        height: 100vh;
+      }
+      .gallery360__popup-body_title {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        max-width: 560px;
+        /* max-width: 560px; */
+      }
+      .gallery360__popup-body_title h2 {
+        font-size: 20px;
+        line-height: 24px;
+        leading-trim: both;
+        text-edge: cap;
+        text-transform: uppercase;
+        color: #919191;
+        font-weight: 400;
+      }
+      .gallery360__popup-body_subtitle {
+        max-width: 560px;
+        margin-bottom: 20px;
+      }
+      .gallery360__popup-body_subtitle h3 {
+        font-size: 30px;
+        line-height: 37px;
+        leading-trim: both;
+        text-edge: cap;
+        text-transform: uppercase;
+        color: #221f20;
+        font-weight: 400;
+      }
+      .gallery360__popup-body_text {
+        max-width: 560px;
+        margin-bottom: 30px;
+      }
+      .gallery360__popup-body_text p {
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 150%;
+        leading-trim: both;
+        text-edge: cap;
+
+        color: #000000;
+      }
+      .gallery360__popup-body-form_title h2 {
+        max-width: 560px;
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 37px;
+        leading-trim: both;
+        text-edge: cap;
+        /* text-align: center; */
+        text-transform: uppercase;
+        color: #221f20;
+        margin-bottom: 10px;
+      }
+      .gallery360__popup-body-form_subtitle h3 {
+        font-family: "Montserrat";
+        max-width: 560px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        leading-trim: both;
+        text-edge: cap;
+        color: #000000;
+        margin-bottom: 20px;
+      }
+      .gallery360__popup-body-form_inptut input {
+        max-width: 560px;
+        margin-bottom: 15px;
+        border: none;
+        background-color: transparent;
+        /* opacity: 0.5; */
+        border-bottom: 1px solid #919191;
+        border-radius: 2.55714px;
+        width: 100%;
+        padding-bottom: 12px;
+        padding-top: 12px;
+        padding-right: 10px;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #000000;
+      }
+      .gallery360__popup-body-form_inptut input:-webkit-autofill,
+      .gallery360__popup-body-form_inptut input:-webkit-autofill:hover,
+      .gallery360__popup-body-form_inptut input:-webkit-autofill:focus,
+      .gallery360__popup-body-form_inptut textarea:-webkit-autofill,
+      .gallery360__popup-body-form_inptut textarea:-webkit-autofill:hover,
+      .gallery360__popup-body-form_inptut textarea:-webkit-autofill:focus,
+      .gallery360__popup-body-form_inptut select:-webkit-autofill,
+      .gallery360__popup-body-form_inptut select:-webkit-autofill:hover,
+      .gallery360__popup-body-form_inptut select:-webkit-autofill:focus {
+        /* -webkit-text-fill-color: #0000; */
+        -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+      .gallery360__popup-body-form_inptut input::placeholder {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #919191;
+      }
+      input:active,
+      input:hover,
+      input:focus {
+        outline: 0;
+        outline-offset: 0;
+      }
+      .gallery360__popup-body-form_btn {
+        max-width: 560px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        background: #ada08c;
+        width: 100%;
+        height: 50px;
+        justify-content: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        gap: 12px;
+      }
+      .gallery360__popup-body-form_btn svg {
+        transition: all 0.3s ease;
+      }
+      .gallery360__popup-body-form_btn:hover svg {
+        transform: translateX(20%);
+      }
+      .gallery360__popup-body-form_btn p {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 150%;
+        leading-trim: both;
+        text-edge: cap;
+        text-transform: uppercase;
+
+        color: #000000;
+      }
+      /* ------------ */
+      .gallery-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .gallery-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in;
+      }
+      .gallery-img.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .gallery-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hidden {
+        /* opacity: 0;
+        visibility: hidden;
+        pointer-events: none; */
+      }
+      .is-horizontal {
+        width: 100%;
+        margin: 0 auto;
+      }
+      /* ------------ */
+      /* close popup */
+      .gallery360__all-popuo-close {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        z-index: 200;
+      }
+      .gallery360__all-popuo-close.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .gallery360__all-popuo-close span {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #000;
+      }
+      .gallery360__all-popuo-close_one {
+        transform: rotate(-45deg);
+      }
+      .gallery360__all-popuo-close_two {
+        transform: rotate(45deg);
+      }
+      /* media */
+      @media (max-width: 768.98px) {
+        .gallery360__popup {
+          bottom: 150px;
+        }
+        .gallery360__popup-body__box {
+          padding: 0 15px;
+        }
+        .gallery360 {
+          transform: translate(-50%, 6%);
+          width: 320px !important;
+          margin: 0 auto;
+          z-index: 2000;
+        }
+        .is-horizontal {
+          width: 100%;
+        }
+        /* .animation-btn {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+        .animation-btn.active:nth-child(1) {
+          transition-delay: 0.3s;
+        }
+        .animation-btn.active:nth-child(2) {
+          transition-delay: 0.2s;
+        }
+        .animation-btn.active:nth-child(3) {
+          transition-delay: 0.1s;
+        }
+        .animation-btn.active:nth-child(4) {
+          transition-delay: 0s;
+        }
+        .animation-btn.active {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+        } */
+        .is-horizontal .fancybox__nav .f-button.is-prev {
+          display: none;
+        }
+        .is-horizontal .fancybox__nav .f-button.is-next {
+          display: none;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__wrapper {
+          flex-direction: column;
+          align-items: center;
+          padding: 0px 25px;
+        }
+        .gallery360__wrapper::after {
+          /* content: "";
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          background: linear-gradient(
+            180deg,
+            #000000 0%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          transform: matrix(1, 0, 0, -1, 0, 0);
+          z-index: -1;
+          pointer-events: none; */
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__mob-btn {
+          display: flex;
+          align-items: center;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__text-btn {
+          background-color: transparent !important;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left,
+        .gallery360__right {
+          transition: background 0.5s ease 0s;
+          background-image: linear-gradient(
+            135deg,
+            #68666636 30%,
+            #000 0%
+          ) !important;
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          background-size: 200% 100%;
+          transition: background-position 0.5s ease-out;
+          background-position: 400% 100%;
+          background-color: rgba(0, 0, 0) !important;
+          height: 25px;
+        }
+        .psv-navbar {
+          opacity: 0;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left-int {
+          position: relative;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__left-int.active p,
+        .gallery360__left-int:not(.active) + .gallery360__left-ext p {
+          color: #fff;
+          opacity: 0.4;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__right::before {
+          display: none;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__body {
+          width: 70%;
+          height: 85%;
+          margin-right: 0px;
+        }
+        .gallery360__popup-body_change {
+          padding: 0 15px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__item {
+          padding: 2px 2.5px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__item:first-child {
+          margin-left: auto;
+          padding-left: 2px;
+        }
+        .gallery360__item:last-child {
+          margin-right: auto;
+          padding-right: 2px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-info {
+          width: 100%;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body {
+          padding-left: 0px;
+          width: 100%;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_btns {
+          flex-direction: column;
+          position: fixed;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 20;
+          opacity: 0;
+          transition: all 0.3s ease;
+          pointer-events: none;
+          background-color: #000000;
+          width: 300px;
+        }
+        .gallery360__popup-body_btns.active {
+          opacity: 1;
+          transform: translate(-50%, 0%);
+          pointer-events: auto;
+        }
+        .gallery360__popup-body_btns-mob {
+          display: block;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body__btn:hover.gallery360__popup-body__btn p {
+          color: #ffff;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body__btn.active p {
+          color: #ffff;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_subtitle {
+          /* max-width: 290px; */
+          margin: 15px 0px 30px 0px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_subtitle h3 {
+          font-size: 24px;
+          line-height: 29px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_top {
+          width: 100%;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body__info {
+          flex-direction: column;
+          gap: 22px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_right {
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_text {
+          /* max-width: 290px; */
+          margin: 0px 0px 30px 0px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body_text p {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 768.98px) {
+        .gallery360__popup-body-form_subtitle h3 {
+          white-space: normal;
+        }
+      }
+      form {
+        padding-bottom: 10px;
+      }
+      /* .psv-loader-text {
+        display: none !important;
+      } */
+      .psv-caption-content {
+        display: none;
+      }
+      .galley360__popup-tg {
+        margin-bottom: 13px;
+      }
+      .gallery360__popup-wp {
+        margin-bottom: 13px;
+        position: relative;
+      }
+      .fake-wp-click {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        cursor: pointer;
+      }
+      /* ------------ */
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/gyroscope-plugin@5.0.2/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <div
+      id="viewer"
+      style="width: 100vw !important; height: 100vh !important"
+      class="hidden"
+    ></div>
+    <div class="gallery360">
+      <div class="gallery360__wrapper">
+        <div class="gallery360__body">
+          <div class="swiper-button-prev">
+            <svg
+              width="10"
+              height="17"
+              viewBox="0 0 10 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M9 16L1 8.5L9 1" stroke="white" />
+            </svg>
+          </div>
+          <div
+            class="swiper gallery360__swiper exterior-active"
+            data-active="exterior-active, Exterior 360, ext"
+          >
+            <div class="swiper-wrapper">
+              <div class="swiper-slide ext slide-animation">
+                <div class="gallery360__item _active">
+                  <div
+                    data-src="../img/entres/Entrance_001_POST.jpg"
+                    class="gallery360__img"
+                  >
+                    <img
+                      src="../img/entres/Entrance_001_POST.jpg"
+                      alt="photo"
+                    />
+                    <div class="gallery360__text">
+                      <p>Exterior 360</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide ext slide-animation">
+                <div class="gallery360__item">
+                  <div
+                    data-src="../img/entres/Entrance_002_POST.jpg"
+                    class="gallery360__img"
+                  >
+                    <img
+                      src="../img/entres/Entrance_002_POST.jpg"
+                      alt="photo"
+                    />
+                    <div class="gallery360__text">
+                      <p>Exterior 360</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-button-next">
+            <svg
+              width="10"
+              height="17"
+              viewBox="0 0 10 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1 1L9 8.5L0.999999 16" stroke="white" />
+            </svg>
+          </div>
+        </div>
+        <div class="gallery360__mob-btn">
+          <div
+            data-fancybox-trigger="gallery"
+            data-fancybox-index="0"
+            class="gallery360__right"
+          >
+            <p class="gallery360__text-btn right-btn right-int-btn">Gallery</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery360__popup">
+      <div class="gallery360__popup-btn add-hide">
+        <svg
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="21"
+            cy="21"
+            r="20.5"
+            fill="black"
+            fill-opacity="0.75"
+            stroke="black"
+          />
+          <path
+            d="M20.1562 27.25H22.0312V19.75H20.1562V27.25ZM20.9994 17.4375C21.2915 17.4375 21.5365 17.3417 21.7344 17.15C21.9323 16.9583 22.0312 16.7208 22.0312 16.4375C22.0312 16.1365 21.9325 15.8841 21.7349 15.6805C21.5374 15.4768 21.2926 15.375 21.0006 15.375C20.7085 15.375 20.4635 15.4768 20.2656 15.6805C20.0677 15.8841 19.9688 16.1365 19.9688 16.4375C19.9688 16.7208 20.0675 16.9583 20.2651 17.15C20.4626 17.3417 20.7074 17.4375 20.9994 17.4375ZM21.0083 33.5C19.2847 33.5 17.6649 33.1719 16.1489 32.5156C14.633 31.8594 13.3073 30.9635 12.1719 29.8281C11.0365 28.6927 10.1406 27.3662 9.48438 25.8487C8.82812 24.3312 8.5 22.7098 8.5 20.9844C8.5 19.259 8.82812 17.6375 9.48438 16.12C10.1406 14.6025 11.0365 13.2812 12.1719 12.1562C13.3073 11.0312 14.6338 10.1406 16.1513 9.48438C17.6688 8.82812 19.2902 8.5 21.0156 8.5C22.741 8.5 24.3625 8.82812 25.88 9.48438C27.3975 10.1406 28.7188 11.0312 29.8438 12.1562C30.9688 13.2812 31.8594 14.6042 32.5156 16.125C33.1719 17.6458 33.5 19.2681 33.5 20.9917C33.5 22.7153 33.1719 24.3351 32.5156 25.8511C31.8594 27.367 30.9688 28.6908 29.8438 29.8224C28.7188 30.954 27.3958 31.8498 25.875 32.5099C24.3542 33.17 22.7319 33.5 21.0083 33.5ZM21.0156 31.625C23.9635 31.625 26.4688 30.5885 28.5312 28.5156C30.5938 26.4427 31.625 23.9323 31.625 20.9844C31.625 18.0365 30.5957 15.5312 28.5371 13.4688C26.4785 11.4062 23.9661 10.375 21 10.375C18.0625 10.375 15.5573 11.4043 13.4844 13.4629C11.4115 15.5215 10.375 18.0339 10.375 21C10.375 23.9375 11.4115 26.4427 13.4844 28.5156C15.5573 30.5885 18.0677 31.625 21.0156 31.625Z"
+            fill="white"
+          />
+        </svg>
+      </div>
+      <div class="galley360__popup-tg">
+        <a
+          target="_blank"
+          onclick="ym(93336819,'reachGoal','telegram')"
+          href="https://t.me/Sales_office_en_bot"
+          data-gtag-click="telegram"
+        >
+          <svg
+            width="42"
+            height="42"
+            viewBox="0 0 42 42"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="21"
+              cy="21"
+              r="20.5"
+              fill="black"
+              fill-opacity="0.75"
+              stroke="black"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M28.3447 16.067C28.4934 16.2204 28.5399 16.4461 28.4638 16.6457L23.8638 28.7206C23.7975 28.8949 23.6473 29.0237 23.4649 29.0627C23.2825 29.1017 23.0928 29.0456 22.961 28.9137L17.8778 23.8306L12.826 22.1467C12.6025 22.0722 12.4513 21.8636 12.45 21.628C12.4486 21.3925 12.5974 21.1822 12.82 21.1051L27.7699 15.9302C27.9718 15.8603 28.1959 15.9137 28.3447 16.067ZM19.0255 23.4227L23.1383 27.5354L26.794 17.939L19.0255 23.4227ZM24.4604 18.2398L14.7097 21.6151L18.085 22.7401L24.4604 18.2398Z"
+              fill="white"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9 21.0499C9 14.3948 14.3948 9 21.0499 9C27.7051 9 33.0998 14.3948 33.0998 21.0499C33.0998 27.7051 27.7051 33.0998 21.0499 33.0998C14.3948 33.0998 9 27.7051 9 21.0499ZM21.0499 10.1C15.0023 10.1 10.1 15.0023 10.1 21.0499C10.1 27.0976 15.0023 31.9998 21.0499 31.9998C27.0976 31.9998 31.9998 27.0976 31.9998 21.0499C31.9998 15.0023 27.0976 10.1 21.0499 10.1Z"
+              fill="white"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="gallery360__popup-wp">
+        <a target="_blank" href="" class="gallery360__popup-wp-link event_wp">
+          <svg
+            width="42"
+            height="42"
+            viewBox="0 0 42 42"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="21"
+              cy="21"
+              r="20.5"
+              fill="black"
+              fill-opacity="0.75"
+              stroke="black"
+            />
+            <path
+              d="M21.5 10C15.7065 10 11 14.7065 11 20.5C11 22.3622 11.5107 24.1001 12.3624 25.6171L11.0169 30.4204C10.9954 30.4973 10.9945 30.5784 11.0141 30.6558C11.0338 30.7332 11.0734 30.804 11.1289 30.8613C11.1845 30.9186 11.2541 30.9603 11.3308 30.9823C11.4076 31.0043 11.4887 31.0058 11.5662 30.9866L16.5746 29.7455C18.0462 30.5311 19.7162 31 21.5 31C27.2935 31 32 26.2935 32 20.5C32 14.7065 27.2935 10 21.5 10ZM21.5 10.913C26.8 10.913 31.087 15.2 31.087 20.5C31.087 25.8 26.8 30.087 21.5 30.087C19.8008 30.087 18.2094 29.644 16.826 28.8699C16.7248 28.8133 16.6059 28.7974 16.4934 28.8253L12.1074 29.9122L13.2835 25.7161C13.3003 25.6568 13.305 25.5947 13.2972 25.5336C13.2893 25.4724 13.2692 25.4135 13.238 25.3604C12.3973 23.9347 11.913 22.2759 11.913 20.5C11.913 15.2 16.2 10.913 21.5 10.913ZM17.6847 15.0217C17.392 15.0217 16.9741 15.1306 16.6307 15.5006C16.4245 15.7228 15.5652 16.56 15.5652 18.0319C15.5652 19.5665 16.6295 20.8907 16.7582 21.0608H16.7591V21.0617C16.7469 21.0457 16.9225 21.2999 17.1568 21.6047C17.3911 21.9096 17.7188 22.3099 18.1305 22.7434C18.9538 23.6102 20.1114 24.6121 21.5481 25.2248C22.2098 25.5066 22.7318 25.6767 23.1273 25.8008C23.8601 26.031 24.5277 25.996 25.0291 25.9221C25.4045 25.8668 25.8173 25.6866 26.2257 25.4281C26.6342 25.1696 27.0345 24.8482 27.211 24.3599C27.3374 24.0099 27.4017 23.6863 27.425 23.4201C27.4366 23.287 27.4381 23.1696 27.4294 23.0608C27.4208 22.952 27.43 22.8687 27.3287 22.7024C27.1161 22.3534 26.8754 22.3443 26.6243 22.22C26.4847 22.1509 26.0874 21.9569 25.6889 21.767C25.2909 21.5774 24.9462 21.4094 24.734 21.3337C24.5999 21.2854 24.4361 21.216 24.1999 21.2427C23.9637 21.2695 23.7303 21.4399 23.5945 21.6413C23.4657 21.8322 22.9474 22.444 22.7893 22.6239C22.7872 22.6226 22.8009 22.6289 22.7385 22.598C22.543 22.5013 22.304 22.4191 21.9503 22.2325C21.5966 22.0459 21.1541 21.7703 20.6699 21.3435V21.3426C19.9492 20.7082 19.4444 19.9116 19.2852 19.644C19.2959 19.6313 19.2839 19.6467 19.3066 19.6244L19.3074 19.6235C19.4702 19.4632 19.6144 19.2717 19.7363 19.1313C19.9091 18.9322 19.9854 18.7567 20.068 18.5928C20.2327 18.266 20.141 17.9064 20.0457 17.7172V17.7163C20.0523 17.7294 19.9942 17.6012 19.9316 17.4533C19.8688 17.3049 19.7888 17.1126 19.7033 16.9076C19.5324 16.4974 19.3416 16.0375 19.2281 15.768V15.7672C19.0944 15.4498 18.9135 15.2212 18.6771 15.1109C18.4406 15.0006 18.2317 15.032 18.2232 15.0315H18.2223C18.0536 15.0238 17.8684 15.0217 17.6847 15.0217ZM17.6847 15.9348C17.8607 15.9348 18.0342 15.9369 18.1795 15.9437C18.329 15.9511 18.3197 15.9518 18.291 15.9383C18.2618 15.9247 18.3014 15.9203 18.3864 16.122C18.4975 16.3858 18.6893 16.8475 18.8607 17.2589C18.9465 17.4646 19.0267 17.6576 19.0908 17.809C19.1549 17.9604 19.1896 18.045 19.2299 18.1256V18.1264L19.2308 18.1273C19.2703 18.2053 19.2668 18.1554 19.2531 18.1826C19.1567 18.3738 19.1436 18.4208 19.0462 18.533C18.8978 18.704 18.7465 18.8946 18.6664 18.9735C18.5963 19.0424 18.4698 19.1496 18.3908 19.3596C18.3118 19.5699 18.3487 19.8584 18.4755 20.0738C18.6445 20.3606 19.2011 21.2666 20.0662 22.0283C20.611 22.5085 21.1186 22.8264 21.5241 23.0403C21.9295 23.2542 22.2598 23.3791 22.3337 23.4157C22.5092 23.5025 22.701 23.57 22.924 23.5432C23.147 23.5164 23.3392 23.3811 23.4616 23.2427L23.4625 23.2418C23.6254 23.0571 24.1094 22.5045 24.3417 22.1638C24.3515 22.1673 24.3483 22.1646 24.4255 22.1923V22.1932H24.4264C24.4616 22.2058 24.903 22.4034 25.2966 22.5909C25.6902 22.7785 26.0897 22.9734 26.2195 23.0376C26.4068 23.1303 26.4953 23.1907 26.5182 23.191C26.5197 23.2311 26.5213 23.2747 26.5155 23.3408C26.4995 23.5241 26.4505 23.7779 26.3523 24.0496C26.3042 24.1826 26.0538 24.457 25.738 24.6568C25.4222 24.8567 25.0377 24.9979 24.8954 25.0189C24.4673 25.0819 23.9591 25.1049 23.401 24.9297C23.014 24.8082 22.5314 24.651 21.9066 24.3849C20.6394 23.8445 19.5623 22.9248 18.793 22.1148C18.4083 21.7097 18.1001 21.3327 17.8808 21.0475C17.662 20.7628 17.5664 20.6146 17.4867 20.5098L17.4858 20.5089C17.3444 20.3219 16.4783 19.1171 16.4783 18.0319C16.4783 16.8834 17.0117 16.433 17.3004 16.122C17.4519 15.9587 17.6176 15.9348 17.6847 15.9348Z"
+              fill="white"
+            />
+          </svg>
+        </a>
+        <span
+          class="fake-wp-click"
+          onclick="ym(93336819,'reachGoal','whatsapp')"
+          data-gtag-click="whatsapp"
+        ></span>
+      </div>
+      <div class="gallery360__popup-phone">
+        <a
+          data-gtag-click="phone_call"
+          class="event_call"
+          href="tel:+971522040928"
+          onclick="ym(93336819,'reachGoal','call')"
+        >
+          <svg
+            width="42"
+            height="42"
+            viewBox="0 0 42 42"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="21"
+              cy="21"
+              r="20.5"
+              fill="black"
+              fill-opacity="0.75"
+              stroke="black"
+            />
+            <path
+              d="M26.9645 13C27.3836 13 27.9822 13.1491 28.474 13.6555C28.7693 13.9598 30 15.106 30 17.1213C30 19.2223 28.4757 21.0352 28.2913 21.2681L28.2901 21.2694C28.3075 21.2474 28.0561 21.5954 27.7205 22.0128C27.3849 22.4301 26.9156 22.9783 26.326 23.5717C25.1468 24.7585 23.4889 26.1301 21.4312 26.969C20.4836 27.3548 19.736 27.5877 19.1696 27.7576C18.1199 28.0727 17.1638 28.0248 16.4457 27.9237C15.9081 27.848 15.3169 27.6012 14.7319 27.2474C14.1469 26.8935 13.5736 26.4535 13.3208 25.7849C13.1397 25.3056 13.0476 24.8627 13.0143 24.4982C12.9977 24.316 12.9955 24.1552 13.0079 24.0063C13.0203 23.8574 13.0071 23.7433 13.1522 23.5155C13.4566 23.0378 13.8014 23.0253 14.1611 22.8551C14.3609 22.7606 14.93 22.4949 15.5007 22.235C16.0708 21.9753 16.5644 21.7453 16.8684 21.6417C17.0604 21.5756 17.2949 21.4805 17.6333 21.5172C17.9717 21.5538 18.3058 21.7872 18.5004 22.0628C18.6848 22.3241 19.4272 23.1619 19.6536 23.4081C19.6566 23.4064 19.6369 23.415 19.7263 23.3727C20.0063 23.2403 20.3486 23.1277 20.8552 22.8722C21.3618 22.6167 21.9956 22.2395 22.689 21.6551C23.7212 20.7865 24.4442 19.6947 24.6723 19.3284C24.6569 19.3109 24.6741 19.3321 24.6416 19.3015L24.6403 19.3003C24.4072 19.0808 24.2006 18.8187 24.0261 18.6264C23.7786 18.3539 23.6694 18.1136 23.551 17.8891C23.3152 17.4417 23.4465 16.9494 23.583 16.6903C23.5735 16.7082 23.6568 16.5315 23.7464 16.329C23.8363 16.1259 23.9509 15.8626 24.0733 15.5819C24.3181 15.0204 24.5915 14.3906 24.754 14.0218C24.9455 13.5873 25.2045 13.2731 25.5432 13.1221C25.8819 12.9711 26.1811 13.014 26.1932 13.0134C26.4349 13.0028 26.7014 13 26.9645 13ZM26.9645 14.25C26.7124 14.25 26.4639 14.253 26.2558 14.2623C26.0416 14.2725 26.055 14.2733 26.0961 14.2549C26.138 14.2363 26.0812 14.2302 25.9595 14.5064C25.8003 14.8676 25.5257 15.4996 25.2801 16.0629C25.1573 16.3445 25.0424 16.6088 24.9506 16.8161C24.8589 17.0234 24.8091 17.1391 24.7514 17.2494L24.7502 17.2519C24.6936 17.3586 24.6986 17.2903 24.7182 17.3276C24.8562 17.5893 24.8749 17.6536 25.0145 17.8073C25.227 18.0413 25.4438 18.3023 25.5585 18.4104C25.6589 18.5046 25.84 18.6515 25.9531 18.9389C26.0664 19.2268 26.0135 19.6219 25.8318 19.9168C25.5899 20.3094 24.7926 21.5499 23.5536 22.5926C22.7733 23.2502 22.0464 23.6854 21.4657 23.9782C20.8849 24.271 20.412 24.4421 20.3061 24.4921C20.0548 24.611 19.7801 24.7034 19.4607 24.6667C19.1413 24.63 18.866 24.4448 18.6907 24.2553L18.6894 24.2541C18.4561 24.0013 17.7629 23.2446 17.4303 22.7782C17.4162 22.783 17.4208 22.7793 17.3102 22.8173L17.3089 22.8185C17.2585 22.8357 16.6263 23.1062 16.0626 23.3629C15.4989 23.6197 14.9268 23.8866 14.7408 23.9745C14.4726 24.1015 14.3458 24.1841 14.313 24.1845C14.3108 24.2395 14.3086 24.2991 14.3169 24.3896C14.3398 24.6406 14.41 24.9881 14.5506 25.3601C14.6194 25.5422 14.9781 25.9178 15.4304 26.1914C15.8828 26.4651 16.4333 26.6583 16.6372 26.687C17.2503 26.7734 17.9781 26.8049 18.7775 26.565C19.3318 26.3987 20.0229 26.1834 20.9178 25.8191C22.7327 25.0792 24.2753 23.8201 25.3772 22.7111C25.9281 22.1565 26.3695 21.6403 26.6836 21.2498C26.997 20.86 27.1339 20.6572 27.248 20.5137L27.2493 20.5125C27.4519 20.2564 28.6923 18.607 28.6923 17.1213C28.6923 15.5488 27.9283 14.9322 27.5149 14.5064C27.2979 14.2829 27.0606 14.25 26.9645 14.25Z"
+              fill="#ADA08C"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="gallery360__popup-body popup-modal360">
+      <div class="gallery360__popup-body__box">
+        <div class="gallery360__popup-body_title">
+          <h2>Bio Living</h2>
+        </div>
+        <div class="gallery360__popup-body_subtitle">
+          <h3>Arrive in Style: The Grand Entrance to Your Living Complex</h3>
+        </div>
+        <div class="gallery360__popup-body_text">
+          <p>
+            The entrance to your living complex sets the tone for the entire
+            community. With a grand entrance, you'll feel a sense of pride every
+            time you return home. A well-designed entrance also adds value to
+            your property and creates a lasting impression on visitors. From the
+            moment you drive through the gate, you'll notice the attention to
+            detail in the landscaping and architectural features. The entrance
+            also provides a sense of security, ensuring only authorized
+            individuals can access the complex. So, arrive in style and make a
+            statement with the grand entrance to your living complex.
+          </p>
+        </div>
+        <div class="gallery360__popup-body_form gallery360__popup-body-form">
+          <form
+            onsubmit="ym(93336819,'reachGoal','form')"
+            
+            
+            data-gtag-submit="form"
+          >
+            <div class="gallery360__popup-body-form_title">
+              <h2>Maximize your investments:</h2>
+            </div>
+            <div class="gallery360__popup-body-form_subtitle">
+              <h3>
+                Expert insights and analysis on the top investment strategies
+              </h3>
+            </div>
+            <div class="gallery360__popup-body-form_inptut">
+              <input
+                autocomplete="off"
+                name="name"
+                required
+                type="text"
+                placeholder="Your name"
+              />
+            </div>
+            <div class="gallery360__popup-body-form_inptut">
+              <input
+                autocomplete="off"
+                name="email"
+                required
+                type="email"
+                placeholder="Your e-mail"
+              />
+            </div>
+            <div class="gallery360__popup-body-form_inptut">
+              <input
+                autocomplete="off"
+                name="phone"
+                required
+                type="tel"
+                placeholder="Phone number"
+              />
+            </div>
+            <input
+              type="hidden"
+              name="project"
+              value="keturah_reserve_at_meydan"
+            />
+            <input type="hidden" name="description" value="page_form" />
+            <input type="hidden" name="duration" class="duration" value="" />
+            <input
+              type="hidden"
+              name="pasted_fields"
+              class="pasted_fields"
+              value=""
+            />
+            <input type="hidden" name="language" value="en" />
+            <input type="hidden" name="current_page" value="" />
+            <button class="gallery360__popup-body-form_btn" type="submit">
+              <p>Get a call back</p>
+              <svg
+                width="49"
+                height="8"
+                viewBox="0 0 49 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M44.9125 7.35664L44.1063 6.56914L46.0938 4.58164H0V3.45664H46.1125L44.125 1.46914L44.9125 0.681641L48.25 4.01914L44.9125 7.35664Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="gallery360__popup-body__close close-popup-all">
+        <svg
+          width="30"
+          height="60"
+          viewBox="0 0 30 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M30 60C26.0603 60 22.1593 59.224 18.5195 57.7164C14.8797 56.2087 11.5725 53.999 8.78679 51.2132C6.00103 48.4274 3.79125 45.1203 2.28361 41.4805C0.775969 37.8407 -3.3909e-06 33.9397 -3.21869e-06 30C-3.04648e-06 26.0603 0.775969 22.1593 2.28361 18.5195C3.79125 14.8797 6.00104 11.5726 8.78679 8.78679C11.5726 6.00104 14.8797 3.79125 18.5195 2.28361C22.1593 0.775972 26.0603 -5.16623e-07 30 0L30 60Z"
+            fill="#F3F2EF"
+          />
+          <path
+            d="M16.9375 37.0002L15.6833 35.7461L21.4583 29.9711L15.6833 24.1961L16.9375 22.9419L23.9667 29.9711L16.9375 37.0002Z"
+            fill="black"
+          />
+        </svg>
+      </div>
+      <button class="gallery360__all-popuo-close close-popup-all">
+        <span class="gallery360__all-popuo-close_one"></span>
+        <span class="gallery360__all-popuo-close_two"></span>
+      </button>
+    </div>
+    <div class="gallery360__popup-window"></div>
+    <div class="gallery-wrapper">
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_1.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_1.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_2.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_2.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_3.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_3.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_4.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_4.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_5.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/apart_ext_5.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/bioliving_thumb2.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/bioliving_thumb2.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/townh_ext_4-1.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/townh_ext_4-1.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/townh_ext_5-1.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/townh_ext_5-1.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_1.jpg"
+        ></a>
+        <img
+          src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_1.jpg"
+          alt=""
+        />
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_2-1.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_2-1.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_3.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_3.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_4-1.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/vill_ext_4-1.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div class="gallery-img">
+        <a
+          data-fancybox="gallery"
+          href="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/th_3.jpg"
+        >
+          <img
+            src="https://drupal-landings.s3.eu-west-1.amazonaws.com/keturah/img/all/th_3.jpg"
+            alt=""
+          />
+        </a>
+      </div>
+    </div>
+    <div class="fullscreen-fake"></div>
+    <script>
+      const galleryImgs = document.querySelectorAll(".gallery-img");
+      const exp = document.querySelectorAll(".exp");
+      const gal = document.querySelectorAll(".gal");
+      const int = document.querySelectorAll(".int");
+
+      const openPopup = document.querySelector(".gallery360__popup-btn");
+      const bodyPopup = document.querySelector(".gallery360__popup-body");
+      const closePopup = document.querySelector(
+        ".gallery360__popup-body__close"
+      );
+      const closePopupWindow = document.querySelector(
+        ".gallery360__popup-window"
+      );
+      openPopup.addEventListener("click", () => {
+        bodyPopup.classList.add("active");
+        closePopupWindow.classList.add("active");
+      });
+      closePopup.addEventListener("click", () => {
+        bodyPopup.classList.remove("active");
+        closePopupWindow.classList.remove("active");
+      });
+      closePopupWindow.addEventListener("click", () => {
+        closePopupWindow.classList.remove("active");
+        bodyPopup.classList.remove("active");
+      });
+      const slideAnimation = document.querySelectorAll(".gallery360__item");
+      var swiper = new Swiper(".gallery360__swiper", {
+        slidesPerView: 2,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+      const swiperClass = document.querySelector(".gallery360__swiper");
+      const matches = window.matchMedia("(max-width:479.98px)").matches;
+      const viewer = new PhotoSphereViewer.Viewer({
+        plugins: [PhotoSphereViewer.GyroscopePlugin],
+        container: document.querySelector("#viewer"),
+        panorama: "../img/entres/Entrance_001_POST.jpg",
+        defaultZoomLvl: 0,
+        minFov: 60,
+        navbar: ["zoom", !matches ? "" : "gyroscope", "caption", "fullscreen"],
+      });
+      // console.log(viewer);
+      document.querySelectorAll("[data-src]").forEach((img) => {
+        img.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (!img.parentElement.classList.contains("_active")) {
+            document
+              .querySelectorAll("[data-src]")
+              .forEach((i) =>
+                i.parentElement.classList.contains("_active")
+                  ? i.parentElement.classList.remove("_active")
+                  : null
+              );
+            img.parentElement.classList.add("_active");
+            viewer.setPanorama(img.getAttribute("data-src"));
+          }
+        });
+      });
+      // change active
+
+      // change gallery photo
+      const parentWindow = window.parent;
+      const elementToHide = parentWindow.document.querySelector(".hide-fancy");
+      const iframeButton = document.querySelector(".gallery360__right");
+      const closeModal360 =
+        parentWindow.document.querySelectorAll(".close-modal360");
+
+      const galleryShadow =
+        parentWindow.document.querySelector(".gallery__shadow ");
+      iframeButton.addEventListener("click", () => {
+        elementToHide.classList.add("hide");
+        closeModal360.forEach((btn) => {
+          btn.classList.add("hide-hard");
+        });
+      });
+      document
+        .querySelector(".gallery360__right")
+        .addEventListener("click", () => {
+          document.querySelector(".gallery360__wrapper").classList.add("hide");
+          // document.querySelector(".hide-fancy").classList.add("hide");
+          closeModal360.forEach((item) => {
+            item.classList.add("none");
+          });
+          galleryShadow.classList.add("show");
+        });
+
+      // setOption(option, value)
+      const imgWrapper = document.querySelector(".gallery360__body");
+      const imgs = document.querySelectorAll(".gallery360__item");
+      const isMobile = {
+        Android: function () {
+          return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function () {
+          return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function () {
+          return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function () {
+          return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function () {
+          return navigator.userAgent.match(/IEMobile/i);
+        },
+        any: function () {
+          return (
+            isMobile.Android() ||
+            isMobile.BlackBerry() ||
+            isMobile.iOS() ||
+            isMobile.Opera() ||
+            isMobile.Windows()
+          );
+        },
+      };
+
+      // if (!isMobile.any()) {
+      //   imgWrapper.addEventListener("mouseover", (e) => {
+      //     const target = e.target.closest(".gallery360__item");
+      //     if (target) {
+      //       const targetPos = indexInParent(imgWrapper, target);
+      //       imgs[targetPos].classList.add("current-element");
+      //       imgs[targetPos - 1]
+      //         ? imgs[targetPos - 1].classList.add("prev-element")
+      //         : null;
+      //       imgs[targetPos + 1]
+      //         ? imgs[targetPos + 1].classList.add("next-element")
+      //         : null;
+      //     }
+      //   });
+      //   imgWrapper.addEventListener("mouseout", (e) => {
+      //     const target = e.target.closest(".gallery360__item");
+      //     if (target) {
+      //       const targetPos = indexInParent(imgWrapper, target);
+      //       imgs[targetPos].classList.remove("current-element");
+      //       imgs[targetPos - 1]
+      //         ? imgs[targetPos - 1].classList.remove("prev-element")
+      //         : null;
+      //       imgs[targetPos + 1]
+      //         ? imgs[targetPos + 1].classList.remove("next-element")
+      //         : null;
+      //     }
+      //   });
+      //   function indexInParent(parent, element) {
+      //     const array = Array.prototype.slice.call(parent.children);
+      //     return Array.prototype.indexOf.call(array, element);
+      //   }
+      // }
+
+      const addHideClose = document.querySelectorAll(".add-hide");
+      const closePopupAll = document.querySelectorAll(".close-popup-all");
+      const popupModal360 = document.querySelectorAll(".popup-modal360");
+      const popupInfoBody = document.querySelector(".gallery360__popup-body");
+
+      addHideClose.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          closeModal360.forEach((btn) => {
+            btn.classList.add("hide");
+          });
+        });
+      });
+
+      closePopupAll.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          closeModal360.forEach((btn) => {
+            btn.classList.contains("hide")
+              ? btn.classList.remove("hide")
+              : null;
+            popupInfoBody.classList.contains("active")
+              ? popupInfoBody.classList.remove("active")
+              : null;
+            popupModal360.forEach((item) => {
+              item.classList.contains("active")
+                ? item.classList.remove("active")
+                : null;
+            });
+          });
+        });
+      });
+      const link = document.querySelector(".gallery360__popup-wp-link");
+      const btnFakeWp = document.querySelector(".fake-wp-click");
+      console.log(link.href);
+      btnFakeWp.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.open(link.href, "_blank");
+      });
+    </script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-WDVGBZB52C"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-WDVGBZB52C");
+    </script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "ym"
+      );
+
+      ym(93336819, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/93336819"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript>
+    <script src="galleryFancy.js"></script>
+    <script src="hideOnFullScreen.js"></script>
+    
+    
+  </body>
+</html>

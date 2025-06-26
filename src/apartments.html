@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+@@include('html/head.html',{ "title":"Luxury Apartments in Dubai | Keturah Reserve | MAG", "desc": "Enjoy 1 to 4 bedroom Apartments at Meydan. Keturah Reserve – the only residential development in Dubai with a direct 7-minute link to Downtown." })
+
+<body class="apartments-page">
+	<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TRTBFCGB"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- @@include('html/nav.html',{}) -->
+	<div class="test-wh d-none"></div>
+	<div class="app">
+		<div class="progress-wrap active-progress">
+			<svg class="progress-wrap-arrow" data-name="Layer 1" width="12" height="23" viewBox="0 0 12 23">
+				<path
+					d="M5.46967 22.5303C5.76256 22.8232 6.23744 22.8232 6.53033 22.5303L11.3033 17.7574C11.5962 17.4645 11.5962 16.9896 11.3033 16.6967C11.0104 16.4038 10.5355 16.4038 10.2426 16.6967L6 20.9393L1.75735 16.6967C1.46446 16.4038 0.989587 16.4038 0.696694 16.6967C0.403801 16.9896 0.403802 17.4645 0.696695 17.7574L5.46967 22.5303ZM5.24998 5.66521e-07L5.25 22L6.75 22L6.74998 -5.66522e-07L5.24998 5.66521e-07Z"
+					fill="#ADA08C" />
+			</svg>
+			<!-- <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+					<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+				</svg> -->
+			<svg class="progress-circle svg-content" viewBox="0 0 32 32">
+				<circle class="scrollbar-progress-circle" cx="16" cy="16" r="14" fill="none" stroke="#ffffff80"
+					stroke-width="1" />
+				<circle class="scrollbar-progress-circle-active" cx="16" cy="16" r="14" fill="none" stroke="#ada08c"
+					stroke-width="1" stroke-dasharray="0, 100" transform="rotate(-90 16 16)" />
+			</svg>
+		</div>
+		@@include('html/components/header.html',{})
+		<div class="general-preload">
+			<img loading="lazy" src="https://d3b6muno9lbfvx.cloudfront.net/keturah/img/logo.svg" alt="" />
+		</div>
+		<div class="special-preload">
+			<div class="special-preload__preload">
+				<div class="circle-preload"></div>
+				<div class="special-preload__percent">0%</div>
+			</div>
+			<div class="special-preload__video">
+				<div class="special-preload__video-skip">
+					<button class="special-video-skip-btn" type="button">
+						Skip<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M8.75 9.5V0.5H9.875V9.5H8.75ZM0.125 9.5V0.5L6.6125 5L0.125 9.5ZM1.25 7.34375L4.64375 5L1.25 2.65625V7.34375Z"
+								fill="currentColor" />
+						</svg>
+					</button>
+				</div>
+				<video autoplay muted playsinline></video>
+				<div class="special-preload__video-pl">
+					<img alt="">
+				</div>
+			</div>
+		</div>
+		<main class="main main-scrollbar">
+			<div class="scroller" id="scroller">
+				<div id="townhouse" class="main-inner">
+					<div class="fly">@@include('html/components/apartments-intro.html',{})</div>
+					@@include('html/components/floorplan-apartments.html',{})
+					@@include('html/components/gallery-apartments.html',{}) @@include('html/components/town-amenities.html',{})
+					@@include('html/components/form.html',{}) @@include('html/components/footer-apartments.html',{})
+				</div>
+			</div>
+		</main>
+		@@include('html/components/_popup.html',{})
+		<div class="modals360 close-modal360">
+			<div class="modals360__wrapper">
+				<div class="modal360__iframe"></div>
+				<button class="modals360closebtn close-modal360"></button>
+			</div>
+		</div>
+	</div>
+	<script type="module" src="https://fnst.axflare.com/landings/global-script/landings-global-script.js
+"></script>
+	<script src="js/app.min.js"></script>
+	<!-- <script src="js/main.min.js"></script> -->
+</body>
+
+</html>

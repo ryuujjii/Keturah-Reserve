@@ -1,0 +1,150 @@
+.footer {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	&__bg-img {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		opacity: 0.5;
+		& img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+	&__container-wrapper {
+		padding: 100px 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000000;
+		z-index: 0;
+		@include r(576) {
+			padding: 60px 0;
+		}
+	}
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+	}
+	&__logo {
+		padding-bottom: 85px;
+		@include r(576) {
+			padding-bottom: 30px;
+		}
+		img {
+			height: 30px;
+			width: auto;
+		}
+	}
+	&__list {
+		display: flex;
+		gap: 20px;
+		padding: 0;
+		padding-bottom: 50px;
+		flex-wrap: wrap;
+		justify-content: center;
+		@include r(576) {
+			flex-direction: column;
+			align-items: center;
+			padding-bottom: 30px;
+			margin-bottom: 0;
+			gap: 15px;
+		}
+	}
+	.footer__list.hide {
+		.footer__link {
+			opacity: 0;
+			visibility: hidden;
+			transition: 0.2s opacity, 0.2s visibility;
+		}
+	}
+	&__link {
+		transition: 0.5s opacity, 0.5s visibility;
+		a {
+			text-decoration: none;
+			font-size: 18px;
+			line-height: 200%;
+			letter-spacing: 0.02em;
+			color: #ffffff;
+			@include r(576) {
+				font-size: 16px;
+				line-height: 100%;
+			}
+		}
+	}
+	&__link:nth-child(1) {
+		transition-delay: 50ms;
+	}
+	&__link:nth-child(2) {
+		transition-delay: 100ms;
+	}
+	&__link:nth-child(3) {
+		transition-delay: 150ms;
+	}
+	&__link:nth-child(4) {
+		transition-delay: 200ms;
+	}
+	&__link:nth-child(5) {
+		transition-delay: 250ms;
+	}
+	&__link:nth-child(6) {
+		transition-delay: 300ms;
+	}
+	&__link:nth-child(7) {
+		transition-delay: 350ms;
+	}
+	&__link:nth-child(8) {
+		transition-delay: 400ms;
+	}
+	&__link:nth-child(9) {
+		transition-delay: 450ms;
+	}
+	&__copirayt.hide {
+		opacity: 0;
+		visibility: hidden;
+		transition: 0.5s opacity, 0.5s visibility;
+	}
+	&__copirayt {
+		transition: 0.5s opacity, 0.5s visibility;
+		display: flex;
+		gap: 40px;
+		@include r(758) {
+			flex-direction: column;
+			gap: 25px;
+			justify-content: center;
+			align-items: center;
+		}
+		span{
+			font-size: 14px;
+			line-height: 200%;
+			letter-spacing: 0.02em;
+			color: #919191;
+			@include r(758) {
+				order: 2;
+			}
+		}
+		a{
+			font-size: 14px;
+			line-height: 200%;
+			letter-spacing: 0.02em;
+			color: #919191;
+			text-decoration-line: underline;
+			transition: .5s;
+			@include r(758) {
+				order: 1;
+			}
+			.terms-of-use &{
+				pointer-events: none;
+				opacity: 0.7;
+			}
+		}
+	}
+}

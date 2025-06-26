@@ -1,0 +1,318 @@
+.footer-townhouse {
+  position: relative;
+  width: 100%;
+  background-color: $cw;
+  overflow: hidden;
+  &__wrapper {
+    height: calc(var(--vh) * 4);
+  }
+  &__container {
+    min-height: calc(var(--vh) * 4);
+  }
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 2px;
+    height: 0;
+    background-color: #e2e2e2;
+    z-index: 2;
+    @include r(992) {
+      display: none;
+    }
+  }
+  &__title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    h2 {
+      font-size: 160px;
+      line-height: 245px;
+      text-align: center;
+      text-transform: uppercase;
+      color: #f3f2ef;
+      @include r(768) {
+        font-size: 42px;
+      }
+    }
+  }
+  &__subtitle {
+    position: absolute;
+    top: 105px;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    @include r(992) {
+      display: none;
+    }
+    span {
+      font-size: 24px;
+      line-height: 29px;
+      text-align: center;
+      text-transform: uppercase;
+      color: #919191;
+    }
+  }
+  &__bg-img {
+    width: 100%;
+    height: calc(var(--vh) * 1);
+    clip-path: circle(100% at 50% 50%);
+    position: relative;
+    z-index: 3;
+    .footer-townhouse__bg-img-color {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__circle {
+    width: 100%;
+    height: calc(var(--vh) * 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    @include r(992) {
+      flex-direction: column;
+    }
+  }
+  &__appartements {
+    width: 50%;
+    @include r(992) {
+      width: 100%;
+      height: calc(var(--vh) / 2);
+    }
+	.footer-townhouse__img{
+		z-index: 2;
+	}
+  }
+  &__villas {
+    width: 50%;
+    @include r(992) {
+      width: 100%;
+      height: calc(var(--vh) / 2);
+    }
+    .footer-townhouse__btn {
+      @include r(992) {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    clip-path: circle(7% at 50% 50%);
+    z-index: 1;
+    @include r(992) {
+      clip-path: circle(10% at 50% 50%);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      scale: (0.3);
+      @include r(992) {
+        scale: (0.4);
+      }
+    }
+  }
+  &__btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &__appartements-title {
+    padding-right: 300px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    @include r(1600) {
+      padding-right: 250px;
+    }
+    @include r(1280) {
+      padding-right: 180px;
+    }
+    @include r(992) {
+      padding-right: 0;
+      padding-bottom: 230px;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    @include r(768) {
+      padding-bottom: 180px;
+    }
+    @include r(576) {
+      padding-bottom: 130px;
+    }
+    h3 {
+      font-size: 50px;
+      line-height: 61px;
+      text-align: right;
+      text-transform: uppercase;
+      color: #000000;
+      @include r(1440) {
+        font-size: 40px;
+      }
+      @include r(1280) {
+        font-size: 35px;
+      }
+      @include r(576) {
+        font-size: 20px;
+      }
+    }
+  }
+  &__villas-title {
+    padding-left: 300px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    @include r(1600) {
+      padding-left: 250px;
+    }
+    @include r(1280) {
+      padding-left: 180px;
+    }
+    @include r(992) {
+      padding-left: 0;
+      padding-top: 230px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    @include r(768) {
+      padding-top: 180px;
+    }
+    @include r(576) {
+      padding-top: 130px;
+    }
+    h3 {
+      font-size: 50px;
+      line-height: 61px;
+      text-align: left;
+      text-transform: uppercase;
+      color: #000000;
+      @include r(1440) {
+        font-size: 40px;
+      }
+      @include r(1280) {
+        font-size: 35px;
+      }
+      @include r(576) {
+        font-size: 20px;
+      }
+    }
+  }
+  &__close {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    z-index: 2;
+    &-btn {
+      display: flex;
+      flex-direction: column;
+      @include r(768) {
+        bottom: 100px;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    &-text {
+      width: 100%;
+      text-align: center;
+      a {
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+        text-decoration-line: underline;
+        text-transform: uppercase;
+        color: #000000;
+        @include r(768) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  &__scroll-down {
+    height: 70px;
+    width: 2px;
+    cursor: pointer;
+    position: relative;
+    @include r(768) {
+      height: 40px;
+    }
+  }
+  &__scroll-down::before,
+  &__scroll-down::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 15px;
+    width: 2px;
+    background-color: $b;
+    transform: translate(-50%, -100%);
+    animation: scroll-down 1.5s ease-in-out infinite;
+    @include r(768) {
+      height: 10px;
+    }
+  }
+  &__scroll-down::before {
+    top: 30%;
+    animation-delay: 1s;
+  }
+}
+@keyframes scroll-down {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+} ;

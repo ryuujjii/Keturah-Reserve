@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" /> 
+  
+
+  <title>ModalMain</title>
+  <style>
+    html,
+			body {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			#viewer{
+				height: 100vh;
+				width: 100vh;
+			}
+			
+			canvas{
+				height: 100vh !important;
+				width: 100vw !important;
+			}
+  </style>
+</head>
+<body class="without-gallery">
+  <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/gyroscope-plugin@5.0.2/index.js"></script>
+  <div id="viewer"  style="width: 100vw !important; height: 100vh !important"></div>
+
+<script>
+			const matches = window.matchMedia("(max-width:479.98px)").matches
+    const viewer = new PhotoSphereViewer.Viewer({
+				plugins: [PhotoSphereViewer.GyroscopePlugin],
+				container: document.querySelector("#viewer"),
+				panorama: "https://d3b6muno9lbfvx.cloudfront.net/keturah/img/modal3d/modal3d-interior-townhouses.jpg",
+				defaultZoomLvl: 0,
+				navbar: ["zoom", "gyroscope", "caption", matches ? "" : "fullscreen"],
+			});
+</script>
+<script src="./files/modals360/galleryFancy.js"></script>
+</body>
+</html>

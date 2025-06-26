@@ -1,0 +1,224 @@
+.modals360 {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease 0s;
+  top: 0;
+  left: 0;
+  z-index: 1002;
+  height: 100%;
+  width: 100%;
+}
+.modals360.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modals360.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+.modals360__wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 303;
+  width: 85vw;
+  height: 85vh;
+  pointer-events: auto;
+}
+@media (max-width: 479.98px) {
+  .modals360__wrapper {
+    width: 100vw;
+    height: var(--vh);
+  }
+}
+
+.close-modal360.none {
+  pointer-events: none;
+}
+.gallery__shadow {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease 0s;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 301;
+}
+.gallery__shadow.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modals360closebtn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+  transform: translate(110%, -50%);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+@media (max-width: 479.98px) {
+  .modals360closebtn {
+    width: 35px;
+    height: 35px;
+    transform: translate(-50%, 100%);
+    z-index: 1000;
+  }
+}
+.modals360closebtn::after, .modals360closebtn::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+}
+.modals360closebtn::after {
+  transform: rotate(-45deg);
+}
+.modals360closebtn::before {
+  transform: rotate(45deg);
+}
+.modals360closebtn.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modals360closebtn.hide-hard {
+  opacity: 0;
+}
+
+.gallery360__all-popuo-close {
+  position: absolute;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  background: rgba(0, 0, 0, 0);
+}
+.gallery360__all-popuo-close::after, .gallery360__all-popuo-close::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+}
+.gallery360__all-popuo-close::after {
+  transform: rotate(-45deg);
+}
+.gallery360__all-popuo-close::before {
+  transform: rotate(45deg);
+}
+
+.main-section__hand-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2002;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  transition: opacity 0.5s ease;
+  display: none;
+}
+.main-section__hand-wrapper.hide {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.main-section__hand-wrapper::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.7;
+}
+@media (max-width: 767.98px) {
+  .main-section__hand-wrapper {
+    display: block;
+  }
+}
+.main-section__hand {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  animation: handShake 5s linear forwards infinite;
+}
+@keyframes handShake {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-75%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -50%);
+  }
+  75% {
+    transform: translate(-25%, -50%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.main-section__mob-version {
+  position: fixed;
+  bottom: 5%;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media (min-width: 479.98px) {
+  .main-section__mob-version {
+    display: none;
+  }
+}
+.main-section__mob-version__popup p {
+  font-size: 14px;
+  line-height: 150%;
+  /* identical to box height, or 21px */
+  color: #ffffff;
+}
+.main-section__mob-version__br {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main-section__mob-version__br p {
+  font-size: 14px;
+  line-height: 150%;
+  /* identical to box height, or 21px */
+  color: #ffffff;
+}/*# sourceMappingURL=modals360.css.map */
